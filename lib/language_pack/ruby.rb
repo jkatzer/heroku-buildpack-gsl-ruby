@@ -74,7 +74,7 @@ class LanguagePack::Ruby < LanguagePack::Base
         "LANG"     => "en_US.UTF-8",
         "PATH"     => default_path,
         "GEM_PATH" => slug_vendor_base,
-        "LD_LIBRARY_PATH" => ld_path,
+        "LD_LIBRARY_PATH" => ld_path+":/app/vendor/mecab/lib",
       }
 
       ruby_version.jruby? ? vars.merge({
