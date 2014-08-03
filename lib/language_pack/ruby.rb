@@ -10,6 +10,7 @@ require "language_pack/version"
 # base Ruby Language Pack. This is for any base ruby app.
 class LanguagePack::Ruby < LanguagePack::Base
   GSL_VENDOR_URL = "https://s3.amazonaws.com/gsl_bin/gsl-1.15.tgz"
+  MECAB_VENDOR_URL = "https://s3.amazonaws.com/mecab/libmecab-heroku.tar.gz"
   NAME                 = "ruby"
   LIBYAML_VERSION      = "0.1.4"
   LIBYAML_PATH         = "libyaml-#{LIBYAML_VERSION}"
@@ -124,7 +125,7 @@ private
   def default_path
     "bin:#{bundler_binstubs_path}:/usr/local/bin:/usr/bin:/bin:/app/vendor/gsl-1/bin"
   end
-  
+
   def ld_path
     "/app/vendor/gsl-1/lib"
   end
@@ -433,6 +434,15 @@ WARNING
     end
   end
 
+  def install_mecab
+    topic("Installing mecab")
+    bin_dir = "vendor/mecab"
+    FileUtils.mkdir_p bin_dir
+    Dir.chdir(bin_dir) do |dir|
+      run("curl #{MECAB_VENDOR_URL} -s -o - | tar xzf -")
+    end
+  end
+
   def load_default_cache?
     new_app? && ruby_version.default?
   end
@@ -694,7 +704,7 @@ params = CGI.parse(uri.query || "")
       end
     end
   end
-  
+
 	def bundler_cache
     "vendor/bundle"
   end
