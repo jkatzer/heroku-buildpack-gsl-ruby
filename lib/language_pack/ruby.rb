@@ -115,6 +115,7 @@ class LanguagePack::Ruby < LanguagePack::Base
         ENV['CPATH'] = "/app/vendor/mecab/include"
         ENV['CPPPATH'] = "/app/vendor/mecab/include"
         ENV['LIBRARY_PATH'] = "/app/vendor/mecab/lib"
+        ENV['LDFLAGS'] = "-L/app/vendor/mecab/lib"
         install_language_pack_gems
         build_bundler
         create_database_yml
