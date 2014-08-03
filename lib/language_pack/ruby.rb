@@ -108,6 +108,9 @@ class LanguagePack::Ruby < LanguagePack::Base
         install_gsl
         run("cp -R vendor/gsl-1 /app/vendor/gsl")
         run("cp -R vendor/gsl-1 /app/vendor/gsl-1")
+        install_mecab
+        run("cp -R vendor/mecab /app/vendor/mecab")
+        ENV['PATH'] += ":/app/vendor/mecab/bin"
         install_language_pack_gems
         build_bundler
         create_database_yml
