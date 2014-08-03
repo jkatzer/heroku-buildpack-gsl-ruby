@@ -111,6 +111,8 @@ class LanguagePack::Ruby < LanguagePack::Base
         install_mecab
         run("cp -R vendor/mecab /app/vendor/mecab")
         ENV['PATH'] += ":/app/vendor/mecab/bin"
+        ENV['CFLAGS'] += "/app/vendor/mecab/include"
+        ENV['CPPFLAGS'] += "/app/vendor/mecab/include"
         install_language_pack_gems
         build_bundler
         create_database_yml
